@@ -1,11 +1,10 @@
 import java.util.Map;
 import java.util.TreeMap;
 
-public class etudiant extends user{
+public class etudiant extends User {
 
     private String school;
     private Map<Document,Integer> ListedesDocuments;
-
 
     public etudiant(long id, String nom, String prenom, String email, String password) {
         super(id, nom, prenom, email, password);

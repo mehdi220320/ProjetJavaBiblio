@@ -1,11 +1,11 @@
-public class user {
+public class User {
     private long id;
     private String nom;
     private String prenom;
     private String email;
     private String password;
 
-    public user(long id, String nom, String prenom, String email, String password) {
+    public User(long id, String nom, String prenom, String email, String password) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
