@@ -1,9 +1,15 @@
+package services;
+
+import entities.Dictionnaire;
+import entities.Document;
+import entities.Livre;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class ServiceDocumentImpl implements ServiceDocument{
+public class ServiceDocumentImpl implements ServiceDocument {
     private ArrayList<Document> T = new ArrayList<>();
     
     @Override

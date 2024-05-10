@@ -1,3 +1,7 @@
+package entities;
+
+import entities.Document;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -32,7 +36,7 @@ public class etudiant extends User {
                 return true;
             }
         }
-        System.out.println("Document doesn't exist");
+        System.out.println("entities.Document doesn't exist");
         return false;
     }
 

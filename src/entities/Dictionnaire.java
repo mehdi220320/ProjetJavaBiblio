@@ -1,3 +1,5 @@
+package entities;
+
 public class Dictionnaire extends Document {
 	private String langue;
 	private int nbt;

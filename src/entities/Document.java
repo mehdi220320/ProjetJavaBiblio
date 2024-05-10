@@ -1,4 +1,4 @@
-import javax.print.Doc;
+package entities;
 
 public class Document {
 	private String titre;

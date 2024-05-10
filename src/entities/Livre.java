@@ -1,4 +1,8 @@
-public class Livre extends Document{
+package entities;
+
+import entities.Document;
+
+public class Livre extends Document {
 	private String auteur;
 	private int nbp;
 	public Livre (String titre,String auteur,int nbp)

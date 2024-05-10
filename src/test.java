@@ -1,3 +1,8 @@
+import entities.Dictionnaire;
+import entities.Document;
+import entities.Livre;
+import services.ServiceDocumentImpl;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
