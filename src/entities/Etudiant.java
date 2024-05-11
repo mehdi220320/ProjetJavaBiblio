@@ -1,16 +1,14 @@
 package entities;
 
-import entities.Document;
-
 import java.util.Map;
 import java.util.TreeMap;
 
-public class etudiant extends User {
+public class Bibliothecaire extends User {
 
     private String school;
     private Map<Document,Integer> ListedesDocuments;
 
-    public etudiant(long id, String nom, String prenom, String email, String password) {
+    public Bibliothecaire(long id, String nom, String prenom, String email, String password) {
         super(id, nom, prenom, email, password);
         ListedesDocuments=new TreeMap<>();
 
