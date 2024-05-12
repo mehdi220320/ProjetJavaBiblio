@@ -3,15 +3,14 @@ package entities;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Bibliothecaire extends User {
+public class Etudiant extends User {
 
     private String school;
     private Map<Document,Integer> ListedesDocuments;
 
-    public Bibliothecaire(long id, String nom, String prenom, String email, String password) {
-        super(id, nom, prenom, email, password);
+    public Etudiant( String nom, String prenom, String email, String password) {
+        super( nom, prenom, email, password);
         ListedesDocuments=new TreeMap<>();
-
     }
     public Boolean alreadyExiste(Document document){
         for(Document doc:ListedesDocuments.keySet()){

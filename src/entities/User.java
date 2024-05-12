@@ -1,25 +1,42 @@
 package entities;
 
 public class User {
-    private long id;
+    private int id;
     private String nom;
     private String prenom;
     private String email;
     private String password;
 
-    public User(long id, String nom, String prenom, String email, String password) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+
+    public User(String nom, String prenom, String email, String password) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.password = password;
     }
+    public boolean equals(User us) {
+        if(this.nom.equals(us.getNom())||this.prenom.equals(us.getPrenom())||this.email.equals(us.getEmail()))
+            return true;
+        else
+            return false;
+    }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

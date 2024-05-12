@@ -2,7 +2,12 @@ package services;
 
 import entities.User;
 
+import java.util.List;
+
 public interface ServiceUtilisateur {
-    public void addUtilisateur(User user);
+    public boolean addUtilisateur(User user);
     public void deleteUtilisateur(int id);
+    public List<User> getUsers();
+    public void AfficheUsers();
+
 }

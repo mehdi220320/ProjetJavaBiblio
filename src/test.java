@@ -25,17 +25,7 @@ public class test {
         k.ajouterDoucment(d5);
         System.out.println("les auteur son : \n"+k.tousLesAuteurs());
         ArrayList<Dictionnaire> D = new ArrayList<>();
-        D=k.tousLesDictionnaires();
-        for(Dictionnaire D1 : D)
-        {
-        	System.out.println(D1.toString());
-        }
-        
-        try {
-            k.sauvegarde("sauvgarde.txt");
-        } catch (IOException e) {
-            return;
-        }
+
 		}
 
 }

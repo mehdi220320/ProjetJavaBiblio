@@ -54,10 +54,5 @@ public class ServiceDocumentImpl implements ServiceDocument {
     	}
     	return D;
     }
-    public void sauvegarde(String path) throws IOException {
-        FileWriter w = new FileWriter(path);
-        w.append(T.toString());
-        w.close();
 
-    }
 }
