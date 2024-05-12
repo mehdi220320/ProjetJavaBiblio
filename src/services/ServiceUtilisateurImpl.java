@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceUtilisateurImpl implements ServiceUtilisateur {
-    List<User> listeUser=new ArrayList<>();
+    private static List<User> listeUser=new ArrayList<>();
+
+    public List<User> getListeUser() {
+        return listeUser;
+    }
 
     public boolean UserExist(User user){
         for(User us:listeUser){
@@ -36,31 +40,33 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
             }
         }
     }
-
     @Override
     public List<User> getUsers() {
         return this.listeUser;
     }
-
     @Override
     public void AfficheUsers() {
-        for(User us:listeUser){
+        for(User us:this.listeUser){
             System.out.println(us.toString());
         }
     }
     @Override
     public User getByEmail(String email){
         for(User us:listeUser){
-            if(us.getEmail().equals(email))
+            if(us.getEmail().equals(email)) {
                 return us;
+            }
         }
         return null;
     }
     @Override
     public boolean login(String email,String password) {
         User user=getByEmail(email);
-        if(user!=null && user.getPassword().equals(password)){
+        if(user!=null )
+        {
+            if( user.getPassword().equals(password)){
             return true;
+            }
         }
         return false;
     }

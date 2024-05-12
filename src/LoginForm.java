@@ -54,7 +54,7 @@ public class LoginForm  extends  JDialog{
                     JOptionPane.ERROR_MESSAGE);
             System.out.println("Login failed");
         }
-        else if(this.serviceUtilisateur.getByEmail(email)!=null){
+        else if(this.serviceUtilisateur.getByEmail(email)==null){
             JOptionPane.showMessageDialog(this,
                     "Account doesn't exist",
                     "Try Again",
@@ -69,6 +69,13 @@ public class LoginForm  extends  JDialog{
                 System.out.println("Login Successed");
                 dispose();
                 Index index=new Index(null);
+            }else{
+                System.out.println(this.serviceUtilisateur.login(email,password));
+                JOptionPane.showMessageDialog(this,
+                        "Wrong password",
+                        "Try Again",
+                        JOptionPane.ERROR_MESSAGE);
+                System.out.println("Login failed");
             }
         }
     }

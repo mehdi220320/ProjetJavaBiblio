@@ -92,7 +92,12 @@ public class SignupForm extends JDialog {
     }
 
     public static void main(String[] args) {
+        ServiceUtilisateurImpl serv=new ServiceUtilisateurImpl();
+        serv.addUtilisateur(new User("rat","jett","jett","fakroun"));
+        serv.addUtilisateur(new User("mohamed","mehdi","mehdi","mehdi"));
         Index index =new Index(null);
+
+
     }
 
 
