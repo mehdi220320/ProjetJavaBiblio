@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginForm  extends  JDialog{
-    private JTextField textField1;
-    private JPasswordField passwordField1;
+    private JTextField ftEmail;
+    private JPasswordField ftPassword;
     private JButton registerButton;
     private JButton confirmButton;
     private JButton cancelButton;
@@ -38,10 +38,40 @@ public class LoginForm  extends  JDialog{
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Login();
             }
         });
         setVisible(true);
     }
+
+    private void Login() {
+        String email=this.ftEmail.getText();
+        String password=this.ftPassword.getText();
+        if(email.isEmpty()|| password.isEmpty()){
+            JOptionPane.showMessageDialog(this,
+                    "Please enter all fields",
+                    "Try Again",
+                    JOptionPane.ERROR_MESSAGE);
+            System.out.println("Login failed");
+        }
+        else if(this.serviceUtilisateur.getByEmail(email)!=null){
+            JOptionPane.showMessageDialog(this,
+                    "Account doesn't exist",
+                    "Try Again",
+                    JOptionPane.ERROR_MESSAGE);
+            System.out.println("Login failed");
+        }else{
+            if(this.serviceUtilisateur.login(email,password)){
+                JOptionPane.showMessageDialog(this,
+                        "You are welcome",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("Login Successed");
+                dispose();
+                Index index=new Index(null);
+            }
+        }
+    }
+
 
 }

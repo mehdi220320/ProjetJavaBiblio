@@ -48,5 +48,21 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
             System.out.println(us.toString());
         }
     }
+    @Override
+    public User getByEmail(String email){
+        for(User us:listeUser){
+            if(us.getEmail().equals(email))
+                return us;
+        }
+        return null;
+    }
+    @Override
+    public boolean login(String email,String password) {
+        User user=getByEmail(email);
+        if(user!=null && user.getPassword().equals(password)){
+            return true;
+        }
+        return false;
+    }
 
 }

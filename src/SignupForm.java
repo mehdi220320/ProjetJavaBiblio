@@ -73,6 +73,8 @@ public class SignupForm extends JDialog {
                         JOptionPane.INFORMATION_MESSAGE );
                 dispose();
                 System.out.println("Register succeed");
+                this.serviceUtilisateur.AfficheUsers();
+                dispose();
                 LoginForm loginForm = new LoginForm(null);
 
             }else{
