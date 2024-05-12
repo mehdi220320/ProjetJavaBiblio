@@ -1,3 +1,5 @@
+import services.ServiceUtilisateurImpl;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,16 +21,21 @@ public class Index extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                SignupForm form=new SignupForm(null);
+                SignupForm signupForm = new SignupForm(parent, new ServiceUtilisateurImpl());
+                signupForm.setVisible(true);
             }
         });
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                LoginForm form=new LoginForm(null);
+                LoginForm form=new LoginForm(parent);
             }
         });
         setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        Index index = new Index(null);
     }
 }
