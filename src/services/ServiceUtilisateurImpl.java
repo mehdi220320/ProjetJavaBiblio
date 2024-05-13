@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceUtilisateurImpl implements ServiceUtilisateur {
-    List<User> listeUser = new ArrayList<>();
 
     String url = "jdbc:mysql://localhost:3306/biblio";
     String username = "root";
@@ -23,18 +22,10 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         }
     }
 
-    public boolean UserExist(User user) {
-        for (User us : listeUser) {
-            if (us.equals(user)) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     @Override
     public boolean addUtilisateur(User user) {
-        if (!UserExist(user)) {
             try {
                 String sql = "INSERT INTO user (nom,prenom,email, password,role,nblivre) VALUES (?,?,?, ?,?,? )";
                 PreparedStatement statement = connection.prepareStatement(sql);
@@ -45,23 +36,22 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
 statement.setString(5, user.getRole());
 statement.setInt(6, user.getNblivre());
                 int rowsInserted = statement.executeUpdate();
-//                if (rowsInserted > 0) {
-//                    System.out.println("A new user was inserted successfully!");
-//
-//                    // Send a welcome email
-//                    emailsender EmailSender = new emailsender();
-//                    String recipientEmail = user.getEmail();
-//                    String subject = "Welcome to our platform!";
-//                    String body = "Dear " + user.getNom() + ",\n\nWelcome to our platform! We're glad to have you with us.";
-//                    EmailSender.sendEmail(recipientEmail, subject, body);
-//
-//                    return true;
-//                }
+                if (rowsInserted > 0) {
+                    System.out.println("A new user was inserted successfully!");
+
+                   emailsender EmailSender = new emailsender();
+                   String recipientEmail = user.getEmail();
+                   String subject = "Welcome to our platform!";
+                    String body = "Dear " + user.getNom() + ",\n\nWelcome to our platform! We're glad to have you with us.";
+                   EmailSender.sendEmail(recipientEmail, subject, body);
+
+                   return true;
+                }
             } catch (SQLException e) {
                 System.out.println("Connection Failed! Check output console");
                 e.printStackTrace();
             }
-        }
+
         System.out.println("Account already Exist");
         return false;
     }
@@ -105,6 +95,11 @@ statement.setInt(6, user.getNblivre());
         return listeUser;
     }
 
+    @Override
+    public void AfficheUsers() {
+
+    }
+
     public ResultSet getUsers2() {
         List<User> listeUser = new ArrayList<>();
         try {
@@ -127,12 +122,7 @@ statement.setInt(6, user.getNblivre());
         return null;
     }
 
-    @Override
-    public void AfficheUsers() {
-        for (User us : listeUser) {
-            System.out.println(us.toString());
-        }
-    }
+
 
     @Override
     public User getByEmail(String email) {

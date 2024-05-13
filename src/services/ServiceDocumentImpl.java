@@ -1,58 +1,92 @@
 package services;
 
-import entities.Dictionnaire;
-import entities.Document;
+
 import entities.Livre;
+import entities.emplivre;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+
+public class ServiceDocumentImpl  {
+
+    String url = "jdbc:mysql://localhost:3306/biblio";
+    String username = "root";
+    String password = "";
+    private Connection connection;
+Livre livre ;
+    {
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean addDocument(Livre livre) {
+        try {
+            String sql = "INSERT INTO livre (titre,auteur,nbpage) VALUES (?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, livre.getTitre());
+            statement.setString(2, livre.getAuteur());
+            statement.setInt(3, livre.getNbpage());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new document was inserted successfully!");
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
 
 
-public class ServiceDocumentImpl implements ServiceDocument {
-    private ArrayList<Document> T = new ArrayList<>();
-    
-    @Override
-	public void ajouterDoucment(Document document) {
-	
-        T.add(document);
+        }
+        return false;
     }
-    @Override
-	public Document trouverDocument(int num) 
-    {
-    	int i;
-    	boolean test=false;
-    	for (i=0;i<T.size();i++)
-    	{
-    		if (T.get(i).getNum()==num)
-    			{test=true;
-    			break;}
-    	}
-    	if (test)
-    		return T.get(i);
-    	else
-    		return null;
-    	
+
+public ResultSet getDocuments() {
+    List<Livre> emprunts = new ArrayList<>();
+    String sql = "SELECT * FROM livre";
+    try {
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet;
+
+    } catch (SQLException e) {
+        System.out.println("Connection Failed! Check output console");
+        e.printStackTrace();
     }
-    public String  tousLesAuteurs()
-    {
-    	String auteur="";
-    	for (Document T: T)
-    	{
-    		if( T instanceof Livre)
-    			auteur+=((Livre)T).getAuteur()+" ";
-    	}
-    	return auteur;
+    return null;
+}
+public ResultSet getlivre(int id) {
+    String sql = "SELECT * FROM livre WHERE id_livre = ?";
+    try {
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet;
+    } catch (SQLException e) {
+        System.out.println("Connection Failed! Check output console");
+        e.printStackTrace();
     }
-    public ArrayList<Dictionnaire> tousLesDictionnaires() {
-    
-        ArrayList<Dictionnaire> D = new ArrayList<>();
-    	for (Document T:T)
-    	{
-    		if (T instanceof Dictionnaire)
-    			D.add((Dictionnaire)T);
-    	}
-    	return D;
-    }
+    return null;
+
 
 }
+
+public void deleteDocument(int id) {
+    String sql = "DELETE FROM livre WHERE id_livre = ?";
+    try {
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        int rowsDeleted = statement.executeUpdate();
+        if (rowsDeleted > 0) {
+            System.out.println("A document was deleted successfully!");
+        }
+    } catch (SQLException e) {
+        System.out.println("Connection Failed! Check output console");
+        e.printStackTrace();
+    }
+
+}}
