@@ -123,6 +123,21 @@ public class emplivreImpl {
         }
         return emprunts;
     }
+    public ResultSet getAllEmprunts2() {
+
+        String sql = "SELECT * FROM takebook";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet;
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
     public List<emplivre> getEmpruntsByUser(int id_user) {
         List<emplivre> emprunts = new ArrayList<>();
         String sql = "SELECT * FROM takebook WHERE user_id = ?";
