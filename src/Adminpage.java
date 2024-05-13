@@ -192,7 +192,7 @@ public class Adminpage extends JDialog {
             return null;
         }
     }
-    public static void main(String[] args) {
-        Adminpage adminform = new Adminpage(null);
-    }
+//    public static void main(String[] args) {
+//        Adminpage adminform = new Adminpage(null);
+//    }
 }

@@ -91,8 +91,8 @@ import java.awt.event.ActionListener;
             }
         }
 
-        public static void main(String[] args) {
-            ServiceUtilisateurImpl serviceUtilisateur = new ServiceUtilisateurImpl();
-            SignupForm signupForm = new SignupForm(null, serviceUtilisateur);
-        }
+//        public static void main(String[] args) {
+//            ServiceUtilisateurImpl serviceUtilisateur = new ServiceUtilisateurImpl();
+//            SignupForm signupForm = new SignupForm(null, serviceUtilisateur);
+//        }
     }

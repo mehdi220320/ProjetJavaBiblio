@@ -96,10 +96,10 @@ public class LoginForm extends JDialog {
             }
         }
 
-    public static void main(String[] args) {
-        Index index = new Index(null);
-        index.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        Index index = new Index(null);
+//        index.setVisible(true);
+//    }
 
 }
 

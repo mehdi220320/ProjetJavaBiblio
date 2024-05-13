@@ -1,4 +1,3 @@
-import entities.User;
 import services.ServiceDocumentImpl;
 import services.ServiceUtilisateurImpl;
 import services.emplivreImpl;
@@ -14,12 +13,14 @@ import java.sql.ResultSetMetaData;
 import java.util.Vector;
 
 public class Userpage extends JDialog {
+    private int pg;
     private JTextField docID;
     private JTextField NBPage;
     private JTable table1;
     private JButton logoutButton;
     private JButton updateNbDocumentButton;
     private JPanel UserPanel;
+    private JButton switchListDocumentsEmprenteButton;
     private ServiceDocumentImpl liv;
     private ServiceUtilisateurImpl users;
     private emplivreImpl emplivre;
@@ -31,7 +32,7 @@ public class Userpage extends JDialog {
         this.table_load();
         setTitle("Create a new account");
         setContentPane(UserPanel);
-        setMinimumSize(new Dimension(780, 400));
+        setMinimumSize(new Dimension(890, 600));
         setModal(true);
         setLocationRelativeTo(parent);
         updateNbDocumentButton.addActionListener(new ActionListener() {
@@ -48,8 +49,19 @@ public class Userpage extends JDialog {
                 new Index(null);
             }
         });
+        switchListDocumentsEmprenteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchview();
+                table_load();
+            }
+        });
         setVisible(true);
 
+    }
+
+    private void switchview() {
+        this.pg++;
     }
 
     private void updatenb() {
@@ -93,12 +105,21 @@ public class Userpage extends JDialog {
     }
 
     private void table_load() {
-        ResultSet rs = this.liv.getDocuments();
-        table1.setModel(this.resultSetToTableModel(rs));
-        table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        if(this.pg%2==0){
+            ResultSet rs = this.liv.getDocuments();
+            table1.setModel(this.resultSetToTableModel(rs));
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        }
+        else{
+            ResultSet rs = this.emplivre.getEmpruntsByUser2(this.users.getUser_connected());
+            table1.setModel(this.resultSetToTableModel(rs));
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        }
     }
 
-    public static void main(String[] args) {
-        new Userpage(null);
-    }
+//    public static void main(String[] args) {
+//        new Userpage(null);
+//    }
 }

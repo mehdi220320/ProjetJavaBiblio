@@ -35,7 +35,7 @@ public class Index extends JDialog {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        Index index = new Index(null);
-    }
+//    public static void main(String[] args) {
+//        Index index = new Index(null);
+//    }
 }

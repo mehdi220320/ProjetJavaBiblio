@@ -164,6 +164,21 @@ public class emplivreImpl {
         }
         return emprunts;
     }
+    public ResultSet getEmpruntsByUser2(int id_user) {
+        List<emplivre> emprunts = new ArrayList<>();
+        String sql = "SELECT * FROM takebook WHERE user_id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id_user);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet;
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+        }
+        return null;
+    }
     public int getNumberOfEmpruntsByUser(int id_user) {
         List<emplivre> emprunts = getEmpruntsByUser(id_user);
         return emprunts.size();
