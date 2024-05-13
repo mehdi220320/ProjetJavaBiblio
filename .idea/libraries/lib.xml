@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES />
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Desktop/javamail/javamail1_4_4/javamail-1.4.4/docs/javadocs" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$USER_HOME$/Desktop/javamail/javamail1_4_4/javamail-1.4.4/demo" />
+      <root url="file://$USER_HOME$/Desktop/javamail/javamail1_4_4/javamail-1.4.4/demo/client" />
+      <root url="file://$USER_HOME$/Desktop/javamail/javamail1_4_4/javamail-1.4.4/demo/logging" />
+      <root url="file://$USER_HOME$/Desktop/javamail/javamail1_4_4/javamail-1.4.4/demo/outlook" />
+      <root url="file://$USER_HOME$/Desktop/javamail/javamail1_4_4/javamail-1.4.4/demo/servlet" />
+      <root url="file://$USER_HOME$/Desktop/javamail/javamail1_4_4/javamail-1.4.4/demo/webapp/src/classes" />
+      <root url="file://$USER_HOME$/Desktop/javamail/javamail1_4_4/javamail-1.4.4/demo/webapp/src/taglib" />
+    </SOURCES>
+  </library>
+</component>
