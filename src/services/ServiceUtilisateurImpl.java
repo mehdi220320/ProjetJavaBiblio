@@ -70,7 +70,25 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
 
     @Override
     public List<User> getUsers() {
-        return this.listeUser;
+        List<User> listeUser = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setNom(resultSet.getString("nom"));
+                user.setPrenom(resultSet.getString("prenom"));
+                user.setEmail(resultSet.getString("email"));
+                user.setNblivre(resultSet.getInt("nblivre"));
+
+                listeUser.add(user);
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+    }
+        return listeUser;
     }
 
     @Override
