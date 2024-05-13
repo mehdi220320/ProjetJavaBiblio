@@ -61,12 +61,18 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
 
     @Override
     public void deleteUtilisateur(int id) {
-        for (User us : listeUser) {
-            if (us.getId() == id) {
-                listeUser.remove(us);
+        String sql = "DELETE FROM user WHERE id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("A user was deleted successfully!");
             }
-        }
-    }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+    }}
 
     @Override
     public List<User> getUsers() {
@@ -90,7 +96,19 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
     }
         return listeUser;
     }
+    public ResultSet getUsers2() {
+        List<User> listeUser = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
 
+            return resultSet;
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+        }
+        return null;
+    }
     @Override
     public void AfficheUsers() {
         for (User us : listeUser) {
@@ -100,11 +118,25 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
 
     @Override
     public User getByEmail(String email) {
-        for (User us : listeUser) {
-            if (us.getEmail().equals(email))
-                return us;
-        }
-        return null;
+        User user = null;
+        try {
+
+            String sql = "SELECT * FROM user WHERE email = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(resultSet.getString("role")); // Assuming you have a 'role' column in your 'user' table
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+    }
+        return user;
     }
 
     @Override
