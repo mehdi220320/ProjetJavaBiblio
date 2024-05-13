@@ -100,7 +100,15 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         List<User> listeUser = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
+            ResultSet resultSet = statement.executeQuery("SELECT \n" +
+                    "    user.id,\n" +
+                    "    user.nom,\n" +
+                    "    user.prenom,\n" +
+                    "    user.email,\n" +
+                    "    user.nblivre,\n" +
+                    "    (SELECT COUNT(*) FROM takebook WHERE user_id = user.id) AS Numlivemp \n" +
+                    "FROM \n" +
+                    "    user;");
 
             return resultSet;
         } catch (SQLException e) {

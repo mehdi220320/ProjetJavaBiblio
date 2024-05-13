@@ -25,7 +25,7 @@ public class emplivreImpl {
         }
     }
 
-    void addEmprunt(emplivre emprunt) {
+    public void addEmprunt(emplivre emprunt) {
         try {
             String sql = "INSERT INTO takebook (id_livre,user_id,date_emp,date_expiration,page_arr) VALUES (?,?,?, ?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -45,11 +45,12 @@ public class emplivreImpl {
         }
     }
 
-    public void deleteEmprunt(int id) {
-        String sql = "DELETE FROM takebook WHERE id = ?";
+    public void deleteEmprunt(int idlivre,int iduser) {
+        String sql = "DELETE FROM takebook WHERE id_livre = ? and user_id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setInt(1, idlivre);
+            statement.setInt(2, iduser);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 System.out.println("A emprunt was deleted successfully!");
@@ -198,7 +199,7 @@ public class emplivreImpl {
         emplivre.addEmprunt(emprunt2);
 
         emplivre.getAllEmprunts();
-        emplivre.deleteEmprunt(1);
+        emplivre.deleteEmprunt(1,1);
         emplivre.getAllEmprunts();
         emplivre.updateEmprunt(emprunt3);
         emplivre.getEmpruntsByUser(2);

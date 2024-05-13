@@ -42,8 +42,8 @@ import java.awt.event.ActionListener;
                     LoginForm loginForm = new LoginForm(null);
                 }
             });
-
             setVisible(true);
+
         }
 
         private void registerUser() {

@@ -1,40 +1,65 @@
-import javax.sql.RowSetMetaData;
-import javax.sql.rowset.CachedRowSet;
-import javax.sql.rowset.RowSetProvider;
+import entities.emplivre;
+import services.ServiceUtilisateurImpl;
+import services.emplivreImpl;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.Vector;
 
-public class adminpage extends JFrame {
-
+public class adminpage extends JDialog {
+    private static int pg=1;
     private JTable table1;
     private JTextField UserID;
     private JTextField DocID;
     private JTextField NbDoc;
     private JButton addBookButton;
-    private JButton deleteUserButton;
+    private JButton deleteEmprunt;
     private JButton searchUserButton;
+    private JPanel Adminpanel;
+    private JButton switchListLivreUserButton;
+    private JButton logoutButton;
+    private ServiceUtilisateurImpl users;
+    private emplivreImpl emplivre;
+    public adminpage(JFrame parent) {
+        super(parent);
+        this.users = new ServiceUtilisateurImpl();
+        this.emplivre=new emplivreImpl();
+        this.table_load();
+        setTitle("Create a new account");
+        setContentPane(Adminpanel);
+        setMinimumSize(new Dimension(1000, 600));
+        setModal(true);
+        setLocationRelativeTo(parent);
 
-    public adminpage() {
-        setTitle("Admin Dashboard");
-        setSize(600, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
         addBookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                addbook();
+                table_load();
             }
         });
-        deleteUserButton.addActionListener(new ActionListener() {
+
+        deleteEmprunt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                deletebook();
+                table_load();
             }
         });
         searchUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                table_load();
+            }
+        });
+        setVisible(true);
+        switchListLivreUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -42,6 +67,64 @@ public class adminpage extends JFrame {
         });
     }
 
+    private void deletebook() {
+        int livreid=Integer.parseInt(this.DocID.getText());
+        int userId=Integer.parseInt(this.UserID.getText());
+        this.emplivre.deleteEmprunt(livreid,userId);
+    }
 
+    private void addbook() {
+        int livreid=Integer.parseInt(this.DocID.getText());
+        int userId=Integer.parseInt(this.UserID.getText());
+        emplivre emlivre= new emplivre(livreid,userId);
+        this.emplivre.addEmprunt(emlivre);
+    }
 
+    void table_load() {
+        if(this.pg==1){
+        ResultSet rs = this.users.getUsers2();
+        table1.setModel(this.resultSetToTableModel(rs));
+        table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        }
+//        else{
+//            ResultSet rs = (ResultSet) this.emplivre.getAllEmprunts();
+//            table1.setModel(this.resultSetToTableModel(rs));
+//            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//            this.pg=1;
+//        }
+    }
+    public  TableModel resultSetToTableModel(ResultSet rs) {
+        try {
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            Vector columnNames = new Vector();
+
+            // Get the column names
+            for (int column = 0; column < numberOfColumns; column++) {
+                columnNames.addElement(metaData.getColumnLabel(column + 1));
+            }
+
+            // Get all rows.
+            Vector rows = new Vector();
+
+            while (rs.next()) {
+                Vector newRow = new Vector();
+
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    newRow.addElement(rs.getObject(i));
+                }
+
+                rows.addElement(newRow);
+            }
+
+            return new DefaultTableModel(rows, columnNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
+    }
+    public static void main(String[] args) {
+        adminpage adminform = new adminpage(null);
+    }
 }

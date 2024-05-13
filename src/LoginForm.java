@@ -83,13 +83,13 @@ public class LoginForm extends JDialog {
                             JOptionPane.INFORMATION_MESSAGE);
                     System.out.println("Login Successed");
                     dispose();
-                    if ("admin".equals(user.getRole())) {
-                        adminpage adminForm = new adminpage();
-                        adminForm.setVisible(true);
-                    } else {
-                        Index index = new Index(null);
-                        index.setVisible(true);
-                    }
+//                    if ("admin".equals(user.getRole())) {
+//                        adminpage adminForm = new adminpage();
+//                        adminForm.setVisible(true);
+//                    } else {
+//                        Index index = new Index(null);
+//                        index.setVisible(true);
+//                    }
                 } else {
 
                     JOptionPane.showMessageDialog(this,
