@@ -70,7 +70,7 @@ import java.awt.event.ActionListener;
                 User newUser = new User(firstname, lastName, email, password);
                 if (this.serviceUtilisateur.addUtilisateur(newUser)) {
                     JOptionPane.showMessageDialog(this,
-                            "Congratulation !!",
+                            "Congratulations !!",
                             "Account created",
                             JOptionPane.INFORMATION_MESSAGE);
                     dispose();
@@ -81,7 +81,7 @@ import java.awt.event.ActionListener;
 
                 } else {
                     JOptionPane.showMessageDialog(this,
-                            "Account already Exist",
+                            "Account already Exists",
                             "Try Again",
                             JOptionPane.ERROR_MESSAGE);
                     System.out.println("Register failed");

@@ -74,7 +74,7 @@ public class LoginForm extends JDialog {
                             "You are welcome",
                             "Success",
                             JOptionPane.INFORMATION_MESSAGE);
-                    System.out.println("Login Successed");
+                    System.out.println("Login was successful");
                     dispose();
                     if ("admin".equals(user.getRole())) {
                         dispose();

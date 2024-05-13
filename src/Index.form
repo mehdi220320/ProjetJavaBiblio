@@ -27,7 +27,7 @@
         <properties>
           <font name="Monospaced" size="40" style="3"/>
           <foreground color="-16777216"/>
-          <text value="Please Chose One "/>
+          <text value="Please Choose One "/>
         </properties>
       </component>
       <component id="a5d00" class="javax.swing.JButton" binding="registerButton" default-binding="true">

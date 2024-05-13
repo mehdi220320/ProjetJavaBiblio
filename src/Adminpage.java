@@ -167,12 +167,10 @@ public class Adminpage extends JDialog {
             int numberOfColumns = metaData.getColumnCount();
             Vector columnNames = new Vector();
 
-            // Get the column names
             for (int column = 0; column < numberOfColumns; column++) {
                 columnNames.addElement(metaData.getColumnLabel(column + 1));
             }
 
-            // Get all rows.
             Vector rows = new Vector();
 
             while (rs.next()) {

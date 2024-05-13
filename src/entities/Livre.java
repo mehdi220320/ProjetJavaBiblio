@@ -22,7 +22,7 @@ public class Livre  {
 	@Override
 	public String toString()
 	{
-		return super.toString()+"--- un livre du "+auteur+" et du nbr des page = "+nbpage;
+		return super.toString()+"--- un livre de "+auteur+" et du nbr des pages = "+nbpage;
 	}
 
 	public int getId_livre() {

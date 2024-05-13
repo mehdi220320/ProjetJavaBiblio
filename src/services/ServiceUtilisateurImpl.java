@@ -73,7 +73,7 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("A user was deleted successfully!");
+                System.out.println("User was deleted successfully!");
             }
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
@@ -149,7 +149,7 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
                 user.setNblivre(Integer.parseInt(resultSet.getString("nblivre")));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
-                user.setRole(resultSet.getString("role")); // Assuming you have a 'role' column in your 'user' table
+                user.setRole(resultSet.getString("role"));
             }
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
@@ -174,7 +174,7 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
                 user.setId(Integer.parseInt(resultSet.getString("id")));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
-                user.setRole(resultSet.getString("role")); // Assuming you have a 'role' column in your 'user' table
+                user.setRole(resultSet.getString("role"));
             }
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
