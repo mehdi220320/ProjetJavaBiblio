@@ -13,7 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.SQLException;
 
 
 public class LoginForm extends JDialog {
@@ -54,14 +54,18 @@ public class LoginForm extends JDialog {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                login();
+                try {
+                    login();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
         setVisible(true);
     }
 
-    private void login() {
+    private void login() throws SQLException {
         String email = ftEmail.getText();
         String password = new String(ftPassword.getPassword());
         if (email.isEmpty() || password.isEmpty()) {

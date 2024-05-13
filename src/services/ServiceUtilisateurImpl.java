@@ -9,7 +9,19 @@ import java.util.List;
 
 public class ServiceUtilisateurImpl implements ServiceUtilisateur {
     List<User> listeUser = new ArrayList<>();
+
+    String url = "jdbc:mysql://localhost:3306/biblio";
+    String username = "root";
+    String password = "";
     private Connection connection;
+
+    {
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public boolean UserExist(User user) {
         for (User us : listeUser) {
@@ -24,10 +36,6 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
     public boolean addUtilisateur(User user) {
         if (!UserExist(user)) {
             try {
-                String url = "jdbc:mysql://localhost:3306/biblio";
-                String username = "root";
-                String password = "";
-                Connection connection = DriverManager.getConnection(url, username, password);
 
                 String sql = "INSERT INTO user (nom,prenom,email, password) VALUES (?,?,?, ?)";
                 PreparedStatement statement = connection.prepareStatement(sql);
@@ -85,10 +93,6 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
     public User login(String email, String password2) {
         User user = null;
         try {
-            String url = "jdbc:mysql://localhost:3306/biblio";
-            String username = "root";
-            String password = "";
-            Connection connection = DriverManager.getConnection(url, username, password);
 
             String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
