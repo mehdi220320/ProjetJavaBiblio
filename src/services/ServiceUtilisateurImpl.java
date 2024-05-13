@@ -45,18 +45,18 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
 statement.setString(5, user.getRole());
 statement.setInt(6, user.getNblivre());
                 int rowsInserted = statement.executeUpdate();
-                if (rowsInserted > 0) {
-                    System.out.println("A new user was inserted successfully!");
-
-                    // Send a welcome email
-                    emailsender EmailSender = new emailsender();
-                    String recipientEmail = user.getEmail();
-                    String subject = "Welcome to our platform!";
-                    String body = "Dear " + user.getNom() + ",\n\nWelcome to our platform! We're glad to have you with us.";
-                    EmailSender.sendEmail(recipientEmail, subject, body);
-
-                    return true;
-                }
+//                if (rowsInserted > 0) {
+//                    System.out.println("A new user was inserted successfully!");
+//
+//                    // Send a welcome email
+//                    emailsender EmailSender = new emailsender();
+//                    String recipientEmail = user.getEmail();
+//                    String subject = "Welcome to our platform!";
+//                    String body = "Dear " + user.getNom() + ",\n\nWelcome to our platform! We're glad to have you with us.";
+//                    EmailSender.sendEmail(recipientEmail, subject, body);
+//
+//                    return true;
+//                }
             } catch (SQLException e) {
                 System.out.println("Connection Failed! Check output console");
                 e.printStackTrace();
