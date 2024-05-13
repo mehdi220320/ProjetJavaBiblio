@@ -49,6 +49,8 @@ private int nblivre ;
         this.prenom = prenom;
         this.email = email;
         this.password = password;
+this.role="user";
+        this.nblivre=0 ;
 
     }
 
