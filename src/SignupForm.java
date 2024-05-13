@@ -67,7 +67,7 @@ import java.awt.event.ActionListener;
                 System.out.println("Register failed");
                 return;
             } else {
-                User newUser = new User(firstname, lastName, email, password); // Create new User object
+                User newUser = new User(firstname, lastName, email, password);
                 if (this.serviceUtilisateur.addUtilisateur(newUser)) {
                     JOptionPane.showMessageDialog(this,
                             "Congratulation !!",

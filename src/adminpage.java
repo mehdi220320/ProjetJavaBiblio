@@ -1,3 +1,4 @@
+import entities.User;
 import entities.emplivre;
 import services.ServiceUtilisateurImpl;
 import services.emplivreImpl;
@@ -13,7 +14,7 @@ import java.sql.ResultSetMetaData;
 import java.util.Vector;
 
 public class adminpage extends JDialog {
-    private static int pg=1;
+    private static int pg=0;
     private JTable table1;
     private JTextField UserID;
     private JTextField DocID;
@@ -58,40 +59,95 @@ public class adminpage extends JDialog {
                 table_load();
             }
         });
-        setVisible(true);
         switchListLivreUserButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchlist();
+                table_load();
+            }
+        });
+
+        logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
+        searchUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                searchuser();
+            }
+        });
+        setVisible(true);
+
+    }
+
+    private void searchuser() {
+        if (this.UserID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter all fields",
+                    "Try Again",
+                    JOptionPane.ERROR_MESSAGE);
+            System.out.println("Register failed");
+            return;
+        }else{
+            String email=this.UserID.getText();
+            User user=this.users.getByEmail(email);
+            System.out.println(user.toString());
+            this.UserID.setText(""+user.getId());
+            this.NbDoc.setText(""+user.getNblivre());
+        }
+    }
+
+    private void switchlist() {
+        this.pg++;
     }
 
     private void deletebook() {
-        int livreid=Integer.parseInt(this.DocID.getText());
-        int userId=Integer.parseInt(this.UserID.getText());
-        this.emplivre.deleteEmprunt(livreid,userId);
+        if (this.DocID.getText().isEmpty() || this.UserID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter all fields",
+                    "Try Again",
+                    JOptionPane.ERROR_MESSAGE);
+            System.out.println("Register failed");
+            return;
+        }else{
+            int livreid=Integer.parseInt(this.DocID.getText());
+            int userId=Integer.parseInt(this.UserID.getText());
+            this.emplivre.deleteEmprunt(livreid,userId);
+        }
     }
 
     private void addbook() {
-        int livreid=Integer.parseInt(this.DocID.getText());
-        int userId=Integer.parseInt(this.UserID.getText());
-        emplivre emlivre= new emplivre(livreid,userId);
-        this.emplivre.addEmprunt(emlivre);
+
+        if (this.DocID.getText().isEmpty() || this.UserID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter all fields",
+                    "Try Again",
+                    JOptionPane.ERROR_MESSAGE);
+            System.out.println("Register failed");
+            return;
+        }else{
+            int livreid=Integer.parseInt(this.DocID.getText());
+            int userId=Integer.parseInt(this.UserID.getText());
+            emplivre emlivre= new emplivre(livreid,userId);
+            this.emplivre.addEmprunt(emlivre);}
     }
 
     void table_load() {
-        if(this.pg==1){
+        if(this.pg%2==0){
         ResultSet rs = this.users.getUsers2();
         table1.setModel(this.resultSetToTableModel(rs));
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }
-//        else{
-//            ResultSet rs = (ResultSet) this.emplivre.getAllEmprunts();
-//            table1.setModel(this.resultSetToTableModel(rs));
-//            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//            this.pg=1;
-//        }
+        else if(this.pg%2==1){
+            ResultSet rs =  this.emplivre.getAllEmprunts2();
+            table1.setModel(this.resultSetToTableModel(rs));
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            this.pg=1;
+        }
     }
     public  TableModel resultSetToTableModel(ResultSet rs) {
         try {

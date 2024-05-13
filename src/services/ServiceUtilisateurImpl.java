@@ -146,6 +146,8 @@ statement.setInt(6, user.getNblivre());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
+                user.setId(Integer.parseInt(resultSet.getString("id")));
+                user.setNblivre(Integer.parseInt(resultSet.getString("id")));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(resultSet.getString("role")); // Assuming you have a 'role' column in your 'user' table
