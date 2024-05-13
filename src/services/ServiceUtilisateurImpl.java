@@ -36,18 +36,25 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
     public boolean addUtilisateur(User user) {
         if (!UserExist(user)) {
             try {
-
-                String sql = "INSERT INTO user (nom,prenom,email, password) VALUES (?,?,?, ?)";
+                String sql = "INSERT INTO user (nom,prenom,email, password,role,nblivre) VALUES (?,?,?, ?,?,? )";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, user.getNom());
                 statement.setString(2, user.getPrenom());
-
                 statement.setString(3, user.getEmail());
                 statement.setString(4, user.getPassword());
-
+statement.setString(5, user.getRole());
+statement.setInt(6, user.getNblivre());
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
                     System.out.println("A new user was inserted successfully!");
+
+                    // Send a welcome email
+                    emailsender EmailSender = new emailsender();
+                    String recipientEmail = user.getEmail();
+                    String subject = "Welcome to our platform!";
+                    String body = "Dear " + user.getNom() + ",\n\nWelcome to our platform! We're glad to have you with us.";
+                    EmailSender.sendEmail(recipientEmail, subject, body);
+
                     return true;
                 }
             } catch (SQLException e) {
@@ -72,7 +79,8 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-    }}
+        }
+    }
 
     @Override
     public List<User> getUsers() {
@@ -93,9 +101,10 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-    }
+        }
         return listeUser;
     }
+
     public ResultSet getUsers2() {
         List<User> listeUser = new ArrayList<>();
         try {
@@ -109,6 +118,7 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         }
         return null;
     }
+
     @Override
     public void AfficheUsers() {
         for (User us : listeUser) {
@@ -135,7 +145,7 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-    }
+        }
         return user;
     }
 
@@ -163,4 +173,9 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         return user;
     }
 
+    public static void main(String[] args) {
+        ServiceUtilisateurImpl serviceUtilisateur = new ServiceUtilisateurImpl();
+        User user = new User("John", "Doe", "jaouher2002@gmail.com", "password", "user");
+    serviceUtilisateur.addUtilisateur(user);
+    }
 }

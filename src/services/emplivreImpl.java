@@ -179,6 +179,22 @@ public class emplivreImpl {
                         int rowsUpdatedUser = statementUser.executeUpdate();
                         if (rowsUpdatedUser > 0) {
                             System.out.println("The nblivre field for the user was updated successfully!");
+
+                            // Fetch the user's details
+                            String sqlUserSelect = "SELECT * FROM user WHERE id = ?";
+                            PreparedStatement statementUserSelect = connection.prepareStatement(sqlUserSelect);
+                            statementUserSelect.setInt(1, id_user);
+                            ResultSet resultSetUser = statementUserSelect.executeQuery();
+                            if (resultSetUser.next()) {
+                                // Get the user's email
+                                String userEmail = resultSetUser.getString("email");
+                                System.out.println("User email: " + userEmail);
+                                emailsender EmailSender = new emailsender();
+                                String recipientEmail = userEmail;
+                                String subject = "Welcome to our platform!";
+                                String body = "Dear " + resultSetUser.getString("nom")+ ",\n\nyou just finish the book .";
+                                EmailSender.sendEmail(recipientEmail, subject, body);
+                            }
                         }
                     }
                 }
