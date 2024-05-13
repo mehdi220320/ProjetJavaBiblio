@@ -96,7 +96,19 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
     }
         return listeUser;
     }
+    public ResultSet getUsers2() {
+        List<User> listeUser = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
 
+            return resultSet;
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+        }
+        return null;
+    }
     @Override
     public void AfficheUsers() {
         for (User us : listeUser) {
