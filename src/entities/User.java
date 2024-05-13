@@ -10,9 +10,17 @@ public class User {
     private String email;
     private String password;
     private String role;
-
+private int nblivre ;
     public User() {
 
+    }
+
+    public int getNblivre() {
+        return nblivre;
+    }
+
+    public void setNblivre(int nblivre) {
+        this.nblivre = nblivre;
     }
 
     public String getRole() {
@@ -23,7 +31,6 @@ public class User {
         this.role = role;
     }
 
-    private Map<Document,Integer> ListedesDocuments;
 
     @Override
     public String toString() {
@@ -42,7 +49,6 @@ public class User {
         this.prenom = prenom;
         this.email = email;
         this.password = password;
-        ListedesDocuments=new TreeMap<>();
 
     }
 
@@ -52,6 +58,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.nblivre=0 ;
     }
 
     public boolean equals(User us) {
@@ -60,36 +67,10 @@ public class User {
         else
             return false;
     }
-    public Boolean AjouterDocumentsListe(Document document){
-        if(alreadyExiste(document))
-            return false;
-        ListedesDocuments.put(document,0);
-        return  true;
-    }
-    public void setListedesDocuments(Map<Document, Integer> listedesDocuments) {
-        ListedesDocuments = listedesDocuments;
-    }
-    public Map<Document, Integer> getListedesDocuments() {
-        return ListedesDocuments;
-    }
-    public Boolean alreadyExiste(Document document){
-        for(Document doc:ListedesDocuments.keySet()){
-            if(doc.equal(document)){
-                return  false;
-            }
-        }
-        return true;
-    }
-    public Boolean updatePages(String titre,int nbpages){
-        for(Document doc:ListedesDocuments.keySet()){
-            if(titre.equals(doc.getTitre())){
-                ListedesDocuments.put(doc, nbpages);
-                return true;
-            }
-        }
-        System.out.println("entities.Document doesn't exist");
-        return false;
-    }
+
+
+
+
     public int getId() {
         return id;
     }

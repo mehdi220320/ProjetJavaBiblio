@@ -11,12 +11,15 @@ public class emplivre {
     private LocalDateTime date_expiration;
     private int page_arr;
 
-    public emplivre(int id_livre, int id_user, LocalDateTime date_emp, LocalDateTime date_expiration) {
+    public emplivre(int id_livre, int id_user) {
         this.id_livre = id_livre;
         this.id_user = id_user;
-        this.date_emp = date_emp;
-        this.date_expiration = date_expiration;
+        this.date_emp = LocalDateTime.now();
+        this.date_expiration = date_emp.plusDays(15);
         this.page_arr =0;
+    }
+
+    public emplivre() {
     }
 
     public int getId() {
@@ -66,4 +69,5 @@ public class emplivre {
     public void setPage_arr(int page_arr) {
         this.page_arr = page_arr;
     }
+
 }
