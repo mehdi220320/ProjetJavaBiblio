@@ -1,5 +1,6 @@
 import entities.User;
 import entities.emplivre;
+import services.ServiceDocumentImpl;
 import services.ServiceUtilisateurImpl;
 import services.emplivreImpl;
 
@@ -13,8 +14,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Vector;
 
-public class adminpage extends JDialog {
-    private static int pg=0;
+public class Adminpage extends JDialog {
+    private  int pg;
     private JTable table1;
     private JTextField UserID;
     private JTextField DocID;
@@ -25,14 +26,17 @@ public class adminpage extends JDialog {
     private JPanel Adminpanel;
     private JButton switchListLivreUserButton;
     private JButton logoutButton;
+    private JTextField Emailtf;
     private ServiceUtilisateurImpl users;
     private emplivreImpl emplivre;
-    public adminpage(JFrame parent) {
+    private ServiceDocumentImpl liv;
+    public Adminpage(JFrame parent) {
         super(parent);
         this.users = new ServiceUtilisateurImpl();
         this.emplivre=new emplivreImpl();
+        this.liv=new ServiceDocumentImpl();
         this.table_load();
-        setTitle("Create a new account");
+        setTitle("Admin page");
         setContentPane(Adminpanel);
         setMinimumSize(new Dimension(1000, 600));
         setModal(true);
@@ -71,7 +75,8 @@ public class adminpage extends JDialog {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                dispose();
+                new Index(null);
             }
         });
         searchUserButton.addActionListener(new ActionListener() {
@@ -85,7 +90,7 @@ public class adminpage extends JDialog {
     }
 
     private void searchuser() {
-        if (this.UserID.getText().isEmpty()) {
+        if (this.Emailtf.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Please enter all fields",
                     "Try Again",
@@ -93,16 +98,20 @@ public class adminpage extends JDialog {
             System.out.println("Register failed");
             return;
         }else{
-            String email=this.UserID.getText();
+            String email=this.Emailtf.getText();
             User user=this.users.getByEmail(email);
             System.out.println(user.toString());
             this.UserID.setText(""+user.getId());
+            this.Emailtf.setText(email);
             this.NbDoc.setText(""+user.getNblivre());
         }
     }
 
     private void switchlist() {
         this.pg++;
+        if(this.pg==3)
+            this.pg=0;
+        System.out.println(this.pg);
     }
 
     private void deletebook() {
@@ -137,16 +146,19 @@ public class adminpage extends JDialog {
     }
 
     void table_load() {
-        if(this.pg%2==0){
+        if(this.pg==0){
         ResultSet rs = this.users.getUsers2();
         table1.setModel(this.resultSetToTableModel(rs));
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }
-        else if(this.pg%2==1){
+        else if(this.pg==1){
+            ResultSet rs =  this.liv.getDocuments();
+            table1.setModel(this.resultSetToTableModel(rs));
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        } else if(this.pg==2){
             ResultSet rs =  this.emplivre.getAllEmprunts2();
             table1.setModel(this.resultSetToTableModel(rs));
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            this.pg=1;
         }
     }
     public  TableModel resultSetToTableModel(ResultSet rs) {
@@ -181,6 +193,6 @@ public class adminpage extends JDialog {
         }
     }
     public static void main(String[] args) {
-        adminpage adminform = new adminpage(null);
+        Adminpage adminform = new Adminpage(null);
     }
 }

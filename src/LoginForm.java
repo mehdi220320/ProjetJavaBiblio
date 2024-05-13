@@ -6,13 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import entities.User;
-import services.ServiceUtilisateurImpl;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 
@@ -29,7 +22,7 @@ public class LoginForm extends JDialog {
         super(parent);
         setTitle("Login Account");
         setContentPane(LoginPanel);
-        setMinimumSize(new Dimension(600, 200));
+        setMinimumSize(new Dimension(600, 600));
         setModal(true);
         setLocationRelativeTo(parent);
         this.serviceUtilisateur = new ServiceUtilisateurImpl();
@@ -83,13 +76,15 @@ public class LoginForm extends JDialog {
                             JOptionPane.INFORMATION_MESSAGE);
                     System.out.println("Login Successed");
                     dispose();
-//                    if ("admin".equals(user.getRole())) {
-//                        adminpage adminForm = new adminpage();
-//                        adminForm.setVisible(true);
-//                    } else {
-//                        Index index = new Index(null);
-//                        index.setVisible(true);
-//                    }
+                    if ("admin".equals(user.getRole())) {
+                        dispose();
+                        Adminpage adminForm = new Adminpage(null);
+                    } else {
+                        System.out.println(user.getId());
+                        this.serviceUtilisateur.setUser_connected(user.getId());
+                        dispose();
+                        new Userpage(null);
+                    }
                 } else {
 
                     JOptionPane.showMessageDialog(this,

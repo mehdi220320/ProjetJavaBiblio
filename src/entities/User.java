@@ -40,6 +40,7 @@ private int nblivre ;
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", nblivre='" + nblivre + '\'' +
                 '}';
     }
 

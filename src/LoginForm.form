@@ -6,7 +6,7 @@
       <xy x="20" y="20" width="581" height="400"/>
     </constraints>
     <properties>
-      <background color="-16777216"/>
+      <background color="-1"/>
       <foreground color="-1"/>
     </properties>
     <border type="none"/>
@@ -16,8 +16,9 @@
           <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-1"/>
           <font name="Unispace" size="38" style="3"/>
-          <foreground color="-1"/>
+          <foreground color="-16121669"/>
           <text value="Welcome to th!e library "/>
         </properties>
       </component>
@@ -27,7 +28,7 @@
         </constraints>
         <properties>
           <font name="DialogInput" size="34" style="3"/>
-          <foreground color="-1"/>
+          <foreground color="-16777216"/>
           <text value="email"/>
         </properties>
       </component>
@@ -38,7 +39,7 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-12236470"/>
+          <background color="-1512193"/>
           <font name="DialogInput" size="26" style="3"/>
           <foreground color="-16777216"/>
           <text value=""/>
@@ -50,7 +51,7 @@
         </constraints>
         <properties>
           <font name="DialogInput" size="34" style="3"/>
-          <foreground color="-1"/>
+          <foreground color="-16777216"/>
           <text value="Password"/>
         </properties>
       </component>
@@ -60,7 +61,7 @@
         </constraints>
         <properties>
           <font name="Unispace" size="36" style="3"/>
-          <foreground color="-1"/>
+          <foreground color="-16777216"/>
           <text value="Login "/>
         </properties>
       </component>
@@ -71,7 +72,7 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-12236470"/>
+          <background color="-1512193"/>
           <font name="DialogInput" size="26" style="3"/>
           <foreground color="-16777216"/>
         </properties>
@@ -81,9 +82,9 @@
           <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-16777216"/>
+          <background color="-1512193"/>
           <font name="DialogInput" size="26" style="3"/>
-          <foreground color="-1"/>
+          <foreground color="-16121669"/>
           <text value="Register"/>
         </properties>
       </component>
@@ -92,9 +93,9 @@
           <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-16777216"/>
+          <background color="-1512193"/>
           <font name="DialogInput" size="26" style="3"/>
-          <foreground color="-1"/>
+          <foreground color="-16739556"/>
           <text value="Confirm"/>
         </properties>
       </component>
@@ -103,9 +104,9 @@
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-16777216"/>
+          <background color="-1512193"/>
           <font name="DialogInput" size="26" style="3"/>
-          <foreground color="-1"/>
+          <foreground color="-4521976"/>
           <text value="Cancel"/>
         </properties>
       </component>

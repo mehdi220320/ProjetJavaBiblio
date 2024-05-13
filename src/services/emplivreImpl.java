@@ -235,7 +235,7 @@ public class emplivreImpl {
         emplivre.updateEmprunt(emprunt3);
         emplivre.getEmpruntsByUser(2);
         emplivre.getEmprunt(2);
-        emplivre.updatenombrepages(5, 320, 2);
+        emplivre.updatenombrepages(5, 320, 3);
 
     emplivre.getNumberOfEmpruntsByUser(1);
     }

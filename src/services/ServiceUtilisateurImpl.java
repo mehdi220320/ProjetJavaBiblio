@@ -8,6 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceUtilisateurImpl implements ServiceUtilisateur {
+    private static int user_connected;
+
+    public static int getUser_connected() {
+        return user_connected;
+    }
+
+    public static void setUser_connected(int user_connected) {
+        ServiceUtilisateurImpl.user_connected = user_connected;
+    }
 
     String url = "jdbc:mysql://localhost:3306/biblio";
     String username = "root";
@@ -33,20 +42,20 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
                 statement.setString(2, user.getPrenom());
                 statement.setString(3, user.getEmail());
                 statement.setString(4, user.getPassword());
-statement.setString(5, user.getRole());
-statement.setInt(6, user.getNblivre());
+                statement.setString(5, user.getRole());
+                statement.setInt(6, user.getNblivre());
                 int rowsInserted = statement.executeUpdate();
-                if (rowsInserted > 0) {
-                    System.out.println("A new user was inserted successfully!");
-
-                   emailsender EmailSender = new emailsender();
-                   String recipientEmail = user.getEmail();
-                   String subject = "Welcome to our platform!";
-                    String body = "Dear " + user.getNom() + ",\n\nWelcome to our platform! We're glad to have you with us.";
-                   EmailSender.sendEmail(recipientEmail, subject, body);
-
-                   return true;
-                }
+//                if (rowsInserted > 0) {
+//                    System.out.println("A new user was inserted successfully!");
+//
+////                   emailsender EmailSender = new emailsender();
+////                   String recipientEmail = user.getEmail();
+////                   String subject = "Welcome to our platform!";
+////                    String body = "Dear " + user.getNom() + ",\n\nWelcome to our platform! We're glad to have you with us.";
+////                   EmailSender.sendEmail(recipientEmail, subject, body);
+//
+//                   return true;
+//                }
             } catch (SQLException e) {
                 System.out.println("Connection Failed! Check output console");
                 e.printStackTrace();
@@ -137,7 +146,7 @@ statement.setInt(6, user.getNblivre());
             if (resultSet.next()) {
                 user = new User();
                 user.setId(Integer.parseInt(resultSet.getString("id")));
-                user.setNblivre(Integer.parseInt(resultSet.getString("id")));
+                user.setNblivre(Integer.parseInt(resultSet.getString("nblivre")));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(resultSet.getString("role")); // Assuming you have a 'role' column in your 'user' table
@@ -162,6 +171,7 @@ statement.setInt(6, user.getNblivre());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
+                user.setId(Integer.parseInt(resultSet.getString("id")));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(resultSet.getString("role")); // Assuming you have a 'role' column in your 'user' table
