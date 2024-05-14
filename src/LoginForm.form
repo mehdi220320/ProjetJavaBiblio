@@ -19,7 +19,7 @@
           <background color="-1"/>
           <font name="Unispace" size="38" style="3"/>
           <foreground color="-16121669"/>
-          <text value="Welcome to th!e library "/>
+          <text value="Welcome to the library "/>
         </properties>
       </component>
       <component id="4a20e" class="javax.swing.JLabel">

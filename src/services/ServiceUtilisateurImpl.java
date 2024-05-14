@@ -183,9 +183,5 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         return user;
     }
 
-    public static void main(String[] args) {
-        ServiceUtilisateurImpl serviceUtilisateur = new ServiceUtilisateurImpl();
-        User user = new User("John", "Doe", "jaouher2002@gmail.com", "password", "user");
-    serviceUtilisateur.addUtilisateur(user);
-    }
+
 }
