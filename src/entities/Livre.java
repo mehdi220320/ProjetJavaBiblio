@@ -13,7 +13,10 @@ public class Livre  {
 		this.nbpage=nbpage;
 	}
 
-	public Livre (String titre,int num, String auteur,int nbp)
+	public Livre() {
+	}
+
+	public Livre (String titre, int num, String auteur, int nbp)
 	{
 
 		this.auteur=auteur;

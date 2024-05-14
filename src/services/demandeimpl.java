@@ -1,5 +1,6 @@
 package services;
 
+import entities.User;
 import entities.demande;
 
 import java.sql.*;
@@ -29,6 +30,13 @@ public class demandeimpl {
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("A new demande was inserted successfully!");
+
+                emailsender EmailSender = new emailsender();
+                User user=new ServiceUtilisateurImpl().getById(Demande.getId());
+                String recipientEmail = user.getEmail();
+                String subject = "Votre demande a été bien enregistrée";
+                String body = "Cher " + user.getNom() + ",\n\nVotre demande pour le livre "+Demande.getTitre()+"a été bien enregistrée";
+                EmailSender.sendEmail(recipientEmail, subject, body);
                 return true;
             }
         } catch (SQLException e) {
@@ -96,5 +104,12 @@ public void deleteDemande(int id) {
 
 
 
-
+public static void main(String[] args) {
+        demandeimpl demandeimpl = new demandeimpl();
+        demande Demande = new demande("titre", "auteur", 35);
+        demandeimpl.addDemande(Demande);
+        demandeimpl.getDemande();
+        demandeimpl.getDemandeByUser(35);
+        demandeimpl.deleteDemande(1);
+    }
 }
