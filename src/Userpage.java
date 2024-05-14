@@ -20,7 +20,10 @@ public class Userpage extends JDialog {
     private JButton logoutButton;
     private JButton updateNbDocumentButton;
     private JPanel UserPanel;
-    private JButton switchListDocumentsEmprenteButton;
+    private JButton EmprenteButton;
+    private JButton DocumentButton;
+    private JButton RequestButon;
+    private JButton SendRequest;
     private ServiceDocumentImpl liv;
     private ServiceUtilisateurImpl users;
     private emplivreImpl emplivre;
@@ -49,19 +52,44 @@ public class Userpage extends JDialog {
                 new Index(null);
             }
         });
-        switchListDocumentsEmprenteButton.addActionListener(new ActionListener() {
+        EmprenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchview();
+                switchview(0);
                 table_load();
+            }
+        });
+        DocumentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchview(1);
+                table_load();
+            }
+        });
+        RequestButon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchview(2);
+                table_load();
+            }
+        });
+        SendRequest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addRequest();
+               table_load();
             }
         });
         setVisible(true);
 
     }
 
-    private void switchview() {
-        this.pg++;
+    private void addRequest() {
+
+    }
+
+    private void switchview(int i) {
+        this.pg=i;
     }
 
     private void updatenb() {
@@ -103,16 +131,17 @@ public class Userpage extends JDialog {
     }
 
     private void table_load() {
-        if(this.pg%2==0){
+        if(this.pg==0){
             ResultSet rs = this.liv.getDocuments();
             table1.setModel(this.resultSetToTableModel(rs));
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         }
-        else{
+        else if(this.pg==1){
             ResultSet rs = this.emplivre.getEmpruntsByUser2(this.users.getUser_connected());
             table1.setModel(this.resultSetToTableModel(rs));
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        }else{
 
         }
     }

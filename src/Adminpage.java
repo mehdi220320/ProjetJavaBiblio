@@ -24,9 +24,12 @@ public class Adminpage extends JDialog {
     private JButton deleteEmprunt;
     private JButton searchUserButton;
     private JPanel Adminpanel;
-    private JButton switchListLivreUserButton;
+    private JButton Switchusers;
     private JButton logoutButton;
     private JTextField Emailtf;
+    private JButton empruntsButton;
+    private JButton livresButton;
+    private JButton RequestList;
     private ServiceUtilisateurImpl users;
     private emplivreImpl emplivre;
     private ServiceDocumentImpl liv;
@@ -63,11 +66,11 @@ public class Adminpage extends JDialog {
                 table_load();
             }
         });
-        switchListLivreUserButton.addActionListener(new ActionListener() {
+        Switchusers.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchlist();
+                switchtable(0);
                 table_load();
             }
         });
@@ -85,8 +88,35 @@ public class Adminpage extends JDialog {
                 searchuser();
             }
         });
-        setVisible(true);
 
+        livresButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchtable(1);
+                table_load();
+            }
+        });
+        empruntsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchtable(2);
+                table_load();
+            }
+        });
+
+        RequestList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchtable(3);
+                table_load();
+            }
+        });
+
+
+
+
+
+        setVisible(true);
     }
 
     private void searchuser() {
@@ -107,11 +137,8 @@ public class Adminpage extends JDialog {
         }
     }
 
-    private void switchlist() {
-        this.pg++;
-        if(this.pg==3)
-            this.pg=0;
-        System.out.println(this.pg);
+    private void switchtable(int i) {
+        this.pg=i;
     }
 
     private void deletebook() {
@@ -159,6 +186,8 @@ public class Adminpage extends JDialog {
             ResultSet rs =  this.emplivre.getAllEmprunts2();
             table1.setModel(this.resultSetToTableModel(rs));
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        }else{
+
         }
     }
     public  TableModel resultSetToTableModel(ResultSet rs) {
