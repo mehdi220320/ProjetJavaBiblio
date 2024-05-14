@@ -4,6 +4,7 @@ package services;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 import java.util.Properties;
 
 public class emailsender {
@@ -41,8 +42,4 @@ public class emailsender {
         }
     }
 
-    public static void main(String[] args) {
-        emailsender sender = new emailsender();
-        sender.sendEmail("medmehdi1920@gmail.com", "Test Subject", "Test Body");
-    }
 }

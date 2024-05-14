@@ -104,6 +104,29 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
         return listeUser;
     }
 
+    public User getById(int id) {
+        User user = null;
+        try {
+
+            String sql = "SELECT * FROM user WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(Integer.parseInt(resultSet.getString("id")));
+                user.setNblivre(Integer.parseInt(resultSet.getString("nblivre")));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(resultSet.getString("role"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+        }
+        return user;
+    }
     @Override
     public void AfficheUsers() {
 

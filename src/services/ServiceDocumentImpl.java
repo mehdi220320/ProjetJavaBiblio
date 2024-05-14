@@ -85,6 +85,30 @@ public void deleteDocument(int id) {
     } catch (SQLException e) {
         System.out.println("Connection Failed! Check output console");
         e.printStackTrace();
-    }
+    }}
+public Livre getById(int id) {
+    Livre livre = null;
+    try {
 
-}}
+        String sql = "SELECT * FROM livre WHERE id_livre = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            livre = new Livre();
+            livre.setId_livre(resultSet.getInt("id_livre"));
+            livre.setTitre(resultSet.getString("titre"));
+            livre.setAuteur(resultSet.getString("auteur"));
+            livre.setNbpage(resultSet.getInt("nbpage"));
+        }
+    } catch (SQLException e) {
+        System.out.println("Connection Failed! Check output console");
+        e.printStackTrace();
+    }
+    return livre;
+}
+
+
+
+    }
