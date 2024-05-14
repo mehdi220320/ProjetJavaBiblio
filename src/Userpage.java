@@ -1,4 +1,3 @@
-import entities.Livre;
 import entities.demande;
 import services.ServiceDocumentImpl;
 import services.ServiceUtilisateurImpl;
@@ -27,6 +26,8 @@ public class Userpage extends JDialog {
     private JButton DocumentButton;
     private JButton RequestButon;
     private JButton SendRequest;
+    private JTextField Auteur;
+    private JTextField Title;
     private ServiceDocumentImpl liv;
     private ServiceUtilisateurImpl users;
     private emplivreImpl emplivre;
@@ -60,14 +61,14 @@ public class Userpage extends JDialog {
         EmprenteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchview(0);
+                switchview(1);
                 table_load();
             }
         });
         DocumentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchview(1);
+                switchview(0);
                 table_load();
             }
         });
@@ -90,9 +91,10 @@ public class Userpage extends JDialog {
     }
 
     private void addRequest() {
-        int dID =Integer.parseInt(this.docID.getText());
-        Livre livre= this.liv.getById(dID);
-        this.dem.addDemande(new demande(livre.getTitre(),livre.getAuteur(),this.users.getUser_connected()));
+        String auth=this.Auteur.getText();
+        String title=this.Title.getText();
+        demande Demande = new demande(title, auth, this.users.getUser_connected());
+        this.dem.addDemande(Demande);
         switchview(2);
     }
 
@@ -151,6 +153,7 @@ public class Userpage extends JDialog {
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }else{
             ResultSet rs =  this.dem.getDemandeByUser(this.users.getUser_connected());
+            System.out.println(rs.toString());
             table1.setModel(this.resultSetToTableModel(rs));
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }
