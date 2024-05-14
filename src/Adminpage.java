@@ -2,6 +2,7 @@ import entities.User;
 import entities.emplivre;
 import services.ServiceDocumentImpl;
 import services.ServiceUtilisateurImpl;
+import services.demandeimpl;
 import services.emplivreImpl;
 
 import javax.swing.*;
@@ -33,11 +34,13 @@ public class Adminpage extends JDialog {
     private ServiceUtilisateurImpl users;
     private emplivreImpl emplivre;
     private ServiceDocumentImpl liv;
+    private demandeimpl dems;
     public Adminpage(JFrame parent) {
         super(parent);
         this.users = new ServiceUtilisateurImpl();
         this.emplivre=new emplivreImpl();
         this.liv=new ServiceDocumentImpl();
+        this.dems=new demandeimpl();
         this.table_load();
         setTitle("Admin page");
         setContentPane(Adminpanel);
@@ -187,7 +190,9 @@ public class Adminpage extends JDialog {
             table1.setModel(this.resultSetToTableModel(rs));
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }else{
-
+            ResultSet rs =  this.dems.getDemande();
+            table1.setModel(this.resultSetToTableModel(rs));
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }
     }
     public  TableModel resultSetToTableModel(ResultSet rs) {

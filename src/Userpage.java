@@ -1,5 +1,6 @@
 import services.ServiceDocumentImpl;
 import services.ServiceUtilisateurImpl;
+import services.demandeimpl;
 import services.emplivreImpl;
 
 import javax.swing.*;
@@ -27,12 +28,14 @@ public class Userpage extends JDialog {
     private ServiceDocumentImpl liv;
     private ServiceUtilisateurImpl users;
     private emplivreImpl emplivre;
+    private demandeimpl dem;
     public Userpage(JFrame parent){
         super(parent);
         this.users = new ServiceUtilisateurImpl();
         this.emplivre=new emplivreImpl();
         this.liv=new ServiceDocumentImpl();
         this.table_load();
+        this.dem=new demandeimpl();
         setTitle("Create a new account");
         setContentPane(UserPanel);
         setMinimumSize(new Dimension(890, 600));
@@ -85,7 +88,9 @@ public class Userpage extends JDialog {
     }
 
     private void addRequest() {
-
+//        int dID =Integer.parseInt(this.docID.getText());
+//        Livre livre= (Livre) this.liv.getlivre(dID);
+//        this.dem.addDemande(new demande(livre.getTitre(),this.util));
     }
 
     private void switchview(int i) {

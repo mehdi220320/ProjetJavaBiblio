@@ -2,10 +2,8 @@ package services;
 
 
 import entities.Livre;
-import entities.emplivre;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class ServiceDocumentImpl  {
     String username = "root";
     String password = "";
     private Connection connection;
-Livre livre ;
+    Livre livre ;
     {
         try {
             connection = DriverManager.getConnection(url, username, password);
