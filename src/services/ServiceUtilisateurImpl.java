@@ -105,7 +105,9 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
     }
 
     public User getById(int id) {
-        User user = null;
+
+        User user = new User();
+
         try {
 
             String sql = "SELECT * FROM user WHERE id = ?";
@@ -114,7 +116,7 @@ public class ServiceUtilisateurImpl implements ServiceUtilisateur {
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                user = new User();
+
                 user.setId(Integer.parseInt(resultSet.getString("id")));
                 user.setNblivre(Integer.parseInt(resultSet.getString("nblivre")));
                 user.setEmail(resultSet.getString("email"));

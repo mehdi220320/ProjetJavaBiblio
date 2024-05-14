@@ -32,17 +32,20 @@ public class demandeimpl {
                 System.out.println("A new demande was inserted successfully!");
 
                 emailsender EmailSender = new emailsender();
-                User user=new ServiceUtilisateurImpl().getById(Demande.getId());
-                String recipientEmail = user.getEmail();
-                String subject = "Votre demande a été bien enregistrée";
-                String body = "Cher " + user.getNom() + ",\n\nVotre demande pour le livre "+Demande.getTitre()+"a été bien enregistrée";
-                EmailSender.sendEmail(recipientEmail, subject, body);
+                User user=new ServiceUtilisateurImpl().getById(Demande.getUser_id());
+                if (user != null && user.getEmail() != null) {
+                    String recipientEmail = user.getEmail();
+                    String subject = "Votre demande a été bien enregistrée";
+                    String body = "Cher " + user.getNom() + ",\n\nVotre demande pour le livre "+Demande.getTitre()+"a été bien enregistrée";
+                    EmailSender.sendEmail(recipientEmail, subject, body);
+                } else {
+                    System.out.println("User not found with id: " + Demande.getId() + " or user email is null");
+                }
                 return true;
             }
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-
         }
         return false;
     }
@@ -106,7 +109,7 @@ public void deleteDemande(int id) {
 
 public static void main(String[] args) {
         demandeimpl demandeimpl = new demandeimpl();
-        demande Demande = new demande("titre", "auteur", 35);
+        demande Demande = new demande("titre", "aurteur", 35);
         demandeimpl.addDemande(Demande);
         demandeimpl.getDemande();
         demandeimpl.getDemandeByUser(35);
