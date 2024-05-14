@@ -1,3 +1,5 @@
+import entities.Livre;
+import entities.demande;
 import services.ServiceDocumentImpl;
 import services.ServiceUtilisateurImpl;
 import services.demandeimpl;
@@ -80,7 +82,7 @@ public class Userpage extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addRequest();
-               table_load();
+                table_load();
             }
         });
         setVisible(true);
@@ -88,9 +90,10 @@ public class Userpage extends JDialog {
     }
 
     private void addRequest() {
-//        int dID =Integer.parseInt(this.docID.getText());
-//        Livre livre= (Livre) this.liv.getlivre(dID);
-//        this.dem.addDemande(new demande(livre.getTitre(),this.util));
+        int dID =Integer.parseInt(this.docID.getText());
+        Livre livre= this.liv.getById(dID);
+        this.dem.addDemande(new demande(livre.getTitre(),livre.getAuteur(),this.users.getUser_connected()));
+        switchview(2);
     }
 
     private void switchview(int i) {
@@ -147,7 +150,9 @@ public class Userpage extends JDialog {
             table1.setModel(this.resultSetToTableModel(rs));
             table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }else{
-
+            ResultSet rs =  this.dem.getDemandeByUser(this.users.getUser_connected());
+            table1.setModel(this.resultSetToTableModel(rs));
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }
     }
 
